@@ -7,8 +7,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from "react-router-dom"
 import Cart from "../Cart/Cart"
 import "./Navbar.scss"
+import { useSelector } from 'react-redux';
 const NavBar = () => {
-    const [open,setOpen]= useState(false);
+    const [open, setOpen] = useState(false);
+    const products = useSelector((state)=>state.cart.products)
     return (
         <div className='navbar'>
             <div className="wrapper">
@@ -26,41 +28,41 @@ const NavBar = () => {
                 </div>
                 <div className="item">
                     <Link to="/products/2" className='link'>Men</Link>
-                </div> 
+                </div>
                 <div className="item">
                     <Link to="/products/3" className='link'>Children</Link>
-                </div> 
+                </div>
                 <div className='center'>
-                <Link className='link' to="/" >Clothes Store</Link>
+                    <Link className='link' to="/" >Clothes Store</Link>
                 </div>
                 <div className='right'>
-                <div className='item'>
-                <Link to="/" className='link'>Homepage</Link>
-                </div>
-                <div className='item'>
-                <Link to="/" className='link'>About</Link>
-                </div>
-                <div className='item'>
-                <Link to="/" className='link'>Contact</Link>
-                </div>
-                <div className='item'>
-                <Link to="/"className='link'>Stores</Link>
-                </div>
-                <div className="icons">
-                    <SearchIcon/>
-                    <PersonOutlineIcon/>
-                    <FavoriteBorderIcon/>
-                    <div className="cartIcon" onClick={()=>{
-                        setOpen(!open)
-                    }}>
-                        <ShoppingCartIcon/>
-                        <span>0</span>
+                    <div className='item'>
+                        <Link to="/" className='link'>Homepage</Link>
                     </div>
-                </div>
+                    <div className='item'>
+                        <Link to="/" className='link'>About</Link>
+                    </div>
+                    <div className='item'>
+                        <Link to="/" className='link'>Contact</Link>
+                    </div>
+                    <div className='item'>
+                        <Link to="/" className='link'>Stores</Link>
+                    </div>
+                    <div className="icons">
+                        <SearchIcon />
+                        <PersonOutlineIcon />
+                        <FavoriteBorderIcon />
+                        <div className="cartIcon" onClick={() => {
+                            setOpen(!open)
+                        }}>
+                            <ShoppingCartIcon />
+                            <span>{products.length}</span>
+                        </div>
+                    </div>
 
                 </div>
             </div>
-        {open && <Cart></Cart>}
+            {open && <Cart></Cart>}
         </div>
     )
 }
